@@ -28,7 +28,7 @@ func fileExists(filename string) bool {
 }
 
 // Save function to save data entered in a file mentioned...
-func (storage *JSONStorage) Save(tasksDescription []string) {
+func (storage JSONStorage) Save(tasksDescription []string) {
 	fileData, err := ioutil.ReadFile(storage.FileName)
 
 	todoList := []Task{}
@@ -52,7 +52,7 @@ func (storage *JSONStorage) Save(tasksDescription []string) {
 }
 
 //ShowToDos is for showing the data in the given file...
-func (storage *JSONStorage) ShowToDos() {
+func (storage JSONStorage) ShowToDos() {
 	file, err := ioutil.ReadFile(storage.FileName)
 	if err != nil {
 		log.Fatal(err)
@@ -65,7 +65,7 @@ func (storage *JSONStorage) ShowToDos() {
 }
 
 //Delete function for deleting the specified task in the file ...
-func (storage *JSONStorage) Delete(indexToBeDeleted int64) {
+func (storage JSONStorage) Delete(indexToBeDeleted int64) {
 	file, err := ioutil.ReadFile(storage.FileName)
 	if err != nil {
 		log.Fatal(err)
