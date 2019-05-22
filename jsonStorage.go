@@ -10,8 +10,8 @@ import (
 )
 
 type Task struct {
-	Task string
-	Time string
+	TaskDescription string
+	Time            string
 }
 
 //JSONStorage system for storing data...
@@ -31,7 +31,7 @@ func fileExists(filename string) bool {
 func (storage *JSONStorage) Save(tasksDescription []string) {
 	fileData, err := ioutil.ReadFile(storage.FileName)
 
-	todoList := []task{}
+	todoList := []Task{}
 	json.Unmarshal(fileData, &todoList)
 	if !fileExists(storage.FileName) {
 		emptyJSON, _ := json.Marshal(todoList)
@@ -41,7 +41,7 @@ func (storage *JSONStorage) Save(tasksDescription []string) {
 		log.Fatal(err)
 	}
 	for _, taskDescription := range tasksDescription {
-		task := task{taskDescription, time.Now().Format("Mon Jan 2 15:04:05")}
+		task := Task{taskDescription, time.Now().Format("Mon Jan 2 15:04:05")}
 		todoList = append(todoList, task)
 	}
 	jsonData, err := json.MarshalIndent(todoList, "", "")
@@ -57,10 +57,10 @@ func (storage *JSONStorage) ShowToDos() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	todos := []task{}
+	todos := []Task{}
 	json.Unmarshal(file, &todos)
 	for _, task := range todos {
-		fmt.Printf("Task: %s\n Time: %s\n", task.Task, task.Time)
+		fmt.Printf("Task: %s\n Time: %s\n", task.TaskDescription, task.Time)
 	}
 }
 
@@ -70,7 +70,7 @@ func (storage *JSONStorage) Delete(indexToBeDeleted int64) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	todos := []task{}
+	todos := []Task{}
 	json.Unmarshal(file, &todos)
 	todos = append(todos[:indexToBeDeleted], todos[indexToBeDeleted:]...)
 	jsonData, err := json.MarshalIndent(todos, "", "")
