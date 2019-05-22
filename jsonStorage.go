@@ -72,7 +72,7 @@ func (storage *JSONStorage) Delete(indexToBeDeleted int64) {
 	}
 	todos := []task{}
 	json.Unmarshal(file, &todos)
-	todos = append(todos[:indexToBeDeleted], todos[indexToBeDeleted+1:]...)
+	todos = append(todos[:indexToBeDeleted-1], todos[indexToBeDeleted:]...)
 	jsonData, err := json.MarshalIndent(todos, "", "")
 	if err != nil {
 		log.Fatal(err)
