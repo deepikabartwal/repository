@@ -29,12 +29,12 @@ func fileExists(filename string) bool {
 
 // Save function to save data entered in a file mentioned...
 func (storage *JSONStorage) Save(tasksDescription []string) {
-	file, err := ioutil.ReadFile(storage.FileName)
+	fileData, err := ioutil.ReadFile(storage.FileName)
 
-	data := []task{}
-	json.Unmarshal(file, &data)
+	todoList := []task{}
+	json.Unmarshal(fileData, &todoList)
 	if !fileExists(storage.FileName) {
-		emptyJSON, _ := json.Marshal(data)
+		emptyJSON, _ := json.Marshal(todoList)
 		ioutil.WriteFile(storage.FileName, emptyJSON, 0666)
 	}
 	if err != nil {
@@ -42,9 +42,9 @@ func (storage *JSONStorage) Save(tasksDescription []string) {
 	}
 	for _, taskDescription := range tasksDescription {
 		task := task{taskDescription, time.Now().Format("Mon Jan 2 15:04:05")}
-		data = append(data, task)
+		todoList = append(todoList, task)
 	}
-	jsonData, err := json.MarshalIndent(data, "", "")
+	jsonData, err := json.MarshalIndent(todoList, "", "")
 	if err != nil {
 		log.Fatal(err)
 	}
