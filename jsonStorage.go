@@ -27,8 +27,8 @@ func fileExists(filename string) bool {
 	return !info.IsDir()
 }
 
-// SaveToFile function to save data entered in a file mentioned...
-func (storage *JSONStorage) SaveToFile(args []string) {
+// Save function to save data entered in a file mentioned...
+func (storage *JSONStorage) Save(tasksDescription []string) {
 	file, err := ioutil.ReadFile(storage.FileName)
 
 	data := []task{}
@@ -40,7 +40,7 @@ func (storage *JSONStorage) SaveToFile(args []string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for _, taskDescription := range args {
+	for _, taskDescription := range tasksDescription {
 		task := task{taskDescription, time.Now().Format("Mon Jan 2 15:04:05")}
 		data = append(data, task)
 	}
