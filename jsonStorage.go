@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-type task struct {
+type Task struct {
 	Task string
 	Time string
 }
