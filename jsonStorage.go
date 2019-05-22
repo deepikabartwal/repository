@@ -17,7 +17,7 @@ type Task struct {
 //JSONStorage system for storing data...
 type JSONStorage struct {
 	FileName string
-	hello    string
+	Hello    string
 }
 
 func fileExists(filename string) bool {
